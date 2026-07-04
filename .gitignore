@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.uv-cache/
+.uv-python/
+dist/
+build/
+
+# Data - KHÔNG commit data thô
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+!data/**/.gitkeep
+!data/**/README.md
+
+# Models
+models/checkpoints/*
+models/exports/*.pt
+models/exports/*.onnx
+!models/**/.gitkeep
+
+# MLflow
+mlruns/*
+!mlruns/.gitkeep
+
+# Environment
+.env
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store

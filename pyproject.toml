@@ -1,0 +1,38 @@
+[project]
+name = "gridpulse"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "pyarrow>=15.0",        # cho parquet
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+    "plotly>=5.18",
+    "scikit-learn>=1.4",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+    "loguru>=0.7",          # logging dễ hơn stdlib
+    "requests>=2.31",       # download datasets
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+dl = [
+    "torch>=2.2",
+    "pytorch-lightning>=2.2",
+    "neuralforecast>=3.0",
+]
+api = [
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
+    "sqlalchemy>=2.0",
+    "psycopg2-binary>=2.9",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.3",            # linter + formatter
+    "pre-commit>=3.6",
+    "ipykernel>=6.29",
+    "jupyter>=1.0",
+]
