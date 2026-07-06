@@ -15,6 +15,7 @@ dependencies = [
     "loguru>=0.7",          # logging dễ hơn stdlib
     "requests>=2.31",       # download datasets
     "tqdm>=4.66",
+    "mlflow>=3.14.0",
 ]
 
 [project.optional-dependencies]

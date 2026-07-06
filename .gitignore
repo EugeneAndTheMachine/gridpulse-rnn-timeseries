@@ -40,3 +40,6 @@ mlruns/*
 
 # OS
 .DS_Store
+
+# Status md files
+PROJECT_STATUS.md
