@@ -1,5 +1,4 @@
 """Test data download and validation."""
-from pathlib import Path
 from gridpulse.utils.paths import RAW_DIR
 
 
