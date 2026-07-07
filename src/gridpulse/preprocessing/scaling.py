@@ -1,6 +1,6 @@
 """Scalers for time series features."""
 import pandas as pd
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from dataclasses import dataclass
 import pickle
 from pathlib import Path
@@ -8,7 +8,7 @@ from pathlib import Path
 @dataclass
 class ScalerWrapper:
     """Wrapper to save/load scaler with column info."""
-    scaler: StandardScaler | MinMaxScaler
+    scaler: StandardScaler | MinMaxScaler | RobustScaler
     columns: list[str]
 
     def fit_transform(self, df: pd.DataFrame) -> pd.DataFrame:

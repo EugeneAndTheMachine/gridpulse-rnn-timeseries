@@ -1,6 +1,5 @@
 """Training callbacks"""
 import numpy as np
-import torch
 from pathlib import Path
 from gridpulse.utils.logger import logger
 

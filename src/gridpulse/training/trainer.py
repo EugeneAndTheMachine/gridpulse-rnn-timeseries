@@ -81,7 +81,10 @@ class TimeSeriesTrainer:
             X_batch, y_batch = X_batch.to(self.device), y_batch.to(self.device)
 
             self.optimizer.zero_grad()
-            y_pred = self.model(X_batch)
+            if hasattr(self.model, 'teacher_forcing_ratio'):
+                y_pred = self.model(X_batch, y_batch)
+            else:
+                y_pred = self.model(X_batch)
             loss = self.criterion(y_pred, y_batch)
             loss.backward()
 
