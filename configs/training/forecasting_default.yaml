@@ -1,0 +1,17 @@
+# ---- Data ----
+dataset: "ETTh1"
+input_len: 96
+target_col: "OT"
+
+# ---- Training ----
+batch_size: 32
+learning_rate: 0.001
+max_epochs: 100
+patience: 10          # early stopping
+grad_clip: 1.0
+
+# ---- Horizons to evaluate ----
+horizons: [1, 6, 24, 48]
+
+# ---- Device ----
+device: "auto"        # auto-detect cuda/mps/cpu

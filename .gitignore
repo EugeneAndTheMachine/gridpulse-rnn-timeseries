@@ -5,41 +5,70 @@ __pycache__/
 .venv/
 .uv-cache/
 .uv-python/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.cache/
 dist/
 build/
+htmlcov/
+.coverage
+.coverage.*
 
 # Data - KHÔNG commit data thô
 data/raw/*
 data/interim/*
 data/processed/*
 data/external/*
+data/cache/*
 !data/**/.gitkeep
 !data/**/README.md
 
 # Models
 models/checkpoints/*
 models/exports/*.pt
+models/exports/*.pth
 models/exports/*.onnx
+models/**/*.ckpt
+models/**/*.safetensors
 !models/**/.gitkeep
 
-# MLflow
+# Experiment tracking
+mlflow.db
+**/mlflow.db
+*.sqlite
+*.sqlite3
 mlruns/*
+**/mlruns/*
 !mlruns/.gitkeep
+wandb/
+lightning_logs/
+runs/
+tensorboard/
+events.out.tfevents*
 
 # Environment
 .env
 *.log
+logs/
+**/logs/
 
 # Jupyter
 .ipynb_checkpoints/
+**/.ipynb_checkpoints/
 *.executed.ipynb
 
 # IDE
 .vscode/
 .idea/
+.claude/
+.agents/
+.codex/
 
 # OS
 .DS_Store
+Thumbs.db
+desktop.ini
 
 # Status md files
 PROJECT_STATUS.md
