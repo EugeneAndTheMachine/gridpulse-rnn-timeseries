@@ -52,7 +52,8 @@ class TimeSeriesTrainer:
         # Optimizer
         self.optimizer = torch.optim.Adam(
             self.model.parameters(),
-            lr=config.get("learning_rate", 1e-3)
+            lr=config.get("learning_rate", 1e-3),
+            weight_decay=config.get("weight_decay", 0.0),
         )
 
         # Learning rate scheduler
