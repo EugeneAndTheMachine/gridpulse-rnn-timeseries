@@ -58,6 +58,10 @@ logs/
 **/.ipynb_checkpoints/
 *.executed.ipynb
 
+# Notebooks — không đẩy notebook lên repo
+notebooks/**/*.ipynb
+!notebooks/**/.gitkeep
+
 # IDE
 .vscode/
 .idea/

@@ -53,8 +53,23 @@ class BaseNNForecaster(nn.Module, ABC):
         }, path)
 
     def load_checkpoint(self, path: Path, device: torch.device) -> None:
-        """Load the model's state_dict from a checkpoint file."""
+        """Load the model's state_dict from a checkpoint file.
+
+        Raises a clear ValueError if the checkpoint's saved `forecast_horizon`
+        does not match the current model — the underlying `load_state_dict`
+        error is otherwise a cryptic "size mismatch for fc.weight" trace.
+        """
         checkpoint = torch.load(path, map_location=device, weights_only=True)
+
+        ckpt_horizon = checkpoint.get("forecast_horizon")
+        if ckpt_horizon is not None and ckpt_horizon != self.forecast_horizon:
+            raise ValueError(
+                f"Checkpoint at {path.name} was saved with forecast_horizon="
+                f"{ckpt_horizon}, but this model was built with forecast_horizon="
+                f"{self.forecast_horizon}. Rebuild the model with the matching "
+                f"horizon, or retrain to overwrite the checkpoint."
+            )
+
         self.load_state_dict(checkpoint["model_state_dict"])
 
     def count_parameters(self) -> int:
