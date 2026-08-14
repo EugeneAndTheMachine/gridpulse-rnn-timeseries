@@ -25,8 +25,9 @@ data/cache/*
 !data/**/README.md
 
 # Models
+# checkpoints .pt ĐƯỢC commit (cần cho serving/dashboard, ~4.2MB)
 models/checkpoints/*
-!models/checkpoints/*.pt          # checkpoints .pt ĐƯỢC commit (cần cho serving/dashboard, ~4.2MB)
+!models/checkpoints/*.pt
 models/exports/*.pth
 models/exports/*.onnx
 models/**/*.ckpt
@@ -49,9 +50,17 @@ events.out.tfevents*
 
 # Environment
 .env
+.env.*
+!.env.example
 *.log
 logs/
 **/logs/
+
+# Deploy / secrets (KHÔNG commit)
+.streamlit/secrets.toml
+*.pem
+*.key
+secrets.*
 
 # Jupyter
 .ipynb_checkpoints/
