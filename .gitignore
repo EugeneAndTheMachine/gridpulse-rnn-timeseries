@@ -84,4 +84,4 @@ Thumbs.db
 desktop.ini
 
 # Status md files
-PROJECT_STATUS.md
+# PROJECT_STATUS.md ĐƯỢC commit để công cụ trên web (Claude) đọc được tiến độ dự án
