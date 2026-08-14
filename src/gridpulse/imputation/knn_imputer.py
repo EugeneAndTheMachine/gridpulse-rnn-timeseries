@@ -1,6 +1,5 @@
 """KNN-based imputer wrapping sklearn."""
 import pandas as pd
-import numpy as np
 from sklearn.impute import KNNImputer as SklearnKNNImputer
 from gridpulse.imputation.base import BaseImputer
 

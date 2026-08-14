@@ -1,6 +1,5 @@
 """MICE (Multiple Imputation by Chained Equations) via sklearn IterativeImputer."""
 import pandas as pd
-import numpy as np
 from sklearn.experimental import enable_iterative_imputer  # noqa: F401
 from sklearn.impute import IterativeImputer
 from sklearn.linear_model import BayesianRidge

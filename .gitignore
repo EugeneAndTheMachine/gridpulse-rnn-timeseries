@@ -15,8 +15,8 @@ htmlcov/
 .coverage
 .coverage.*
 
-# Data - KHÔNG commit data thô
-data/raw/*
+# Data
+# data/raw ĐƯỢC commit (cần cho deploy dashboard, ~67MB, file lớn nhất <10MB)
 data/interim/*
 data/processed/*
 data/external/*
@@ -26,7 +26,7 @@ data/cache/*
 
 # Models
 models/checkpoints/*
-models/exports/*.pt
+!models/checkpoints/*.pt          # checkpoints .pt ĐƯỢC commit (cần cho serving/dashboard, ~4.2MB)
 models/exports/*.pth
 models/exports/*.onnx
 models/**/*.ckpt

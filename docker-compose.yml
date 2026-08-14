@@ -1,4 +1,14 @@
 services:
+  postgres:
+    image: timescale/timescaledb:2.18.0-pg16
+    env:
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: gridpulse_test
+    ports:
+      - 5432:5432
+    options: >-
+      --health-cmd pg_isready
+      --health-interval 10s
   db:
     image: timescale/timescaledb:latest-pg16
     container_name: gridpulse-db
@@ -11,6 +21,31 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-gridpulse} -d ${POSTGRES_DB:-gridpulse}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: gridpulse-api
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_HOST: db          # container-to-container
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-gridpulse}
+      POSTGRES_USER: ${POSTGRES_USER:-gridpulse}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./models:/app/models:ro   # models read-only
+    restart: unless-stopped
 volumes:
   pgdata:

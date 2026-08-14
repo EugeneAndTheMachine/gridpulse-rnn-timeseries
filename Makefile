@@ -36,3 +36,18 @@ docker-down:
 
 notebook:
 	uv run jupyter lab notebooks/
+
+db-migrate:
+	uv run alembic upgrade head
+
+db-revision:
+	uv run alembic revision --autogenerate -m "$(msg)"
+
+db-shell:
+	docker compose exec db psql -U gridpulse -d gridpulse
+
+db-reset:
+	docker compose down -v
+	docker compose up -d db
+	sleep 5
+	uv run alembic stamp head

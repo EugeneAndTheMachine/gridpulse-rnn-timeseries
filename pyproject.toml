@@ -16,6 +16,13 @@ dependencies = [
     "requests>=2.31",       # download datasets
     "tqdm>=4.66",
     "mlflow>=3.14.0",
+    "sqlalchemy>=2.0",
+    "psycopg2-binary>=2.9",
+    "alembic>=1.13",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
 ]
 
 [project.optional-dependencies]
@@ -37,4 +44,10 @@ dev = [
     "ipykernel>=6.29",
     "jupyter>=1.0",
     "torch>=2.2"
+]
+
+[dependency-groups]
+dev = [
+    "psycopg[binary]>=3.3.4",
+    "pytest-postgresql>=6.0",
 ]

@@ -4,7 +4,6 @@ import pandas as pd
 import pytest
 from gridpulse.imputation.simple_imputers import ForwardFillImputer, MeanImputer
 from gridpulse.imputation.interpolation import LinearInterpolationImputer
-from gridpulse.imputation.knn_imputer import KNNImputer
 from gridpulse.imputation.evaluate_imputation import compute_imputation_metrics
 
 
