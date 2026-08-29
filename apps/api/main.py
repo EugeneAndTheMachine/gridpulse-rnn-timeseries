@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from apps.api.config import settings
-from apps.api.routes import health, forecast, anomaly, model_metadata
+from apps.api.routes import health, forecast, anomaly, model_metadata, imputation
 from gridpulse.serving.model_loader import get_model_cache
 from gridpulse.utils.logger import logger
 
@@ -45,6 +45,7 @@ app.include_router(health.router, prefix=settings.api_prefix, tags=["health"])
 app.include_router(forecast.router, prefix=settings.api_prefix, tags=["forecast"])
 app.include_router(anomaly.router, prefix=settings.api_prefix, tags=["anomaly"])
 app.include_router(model_metadata.router, prefix=settings.api_prefix, tags=["models"])
+app.include_router(imputation.router, prefix=settings.api_prefix, tags=["imputation"])
 
 
 @app.get("/")

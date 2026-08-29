@@ -51,3 +51,15 @@ db-reset:
 	docker compose up -d db
 	sleep 5
 	uv run alembic stamp head
+
+dashboard-dev:
+	uv run streamlit run apps/dashboard/Home.py
+
+dashboard-run:
+	uv run streamlit run apps/dashboard/Home.py --server.port 8501 --server.address 0.0.0.0
+
+seed:
+	bash scripts/seed_all.sh
+
+demo: docker-up seed
+	@echo "Stack ready → API :8000/docs · Dashboard :8501"

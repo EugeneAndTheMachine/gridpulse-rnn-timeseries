@@ -21,4 +21,6 @@ ENV PYTHONPATH=/app/src
 
 EXPOSE 8000
 
-CMD ["uv", "run", "uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# `uv run` re-syncs the env to default deps by default, which drops the
+# `dl` extra (torch). `--no-sync` keeps the env built above (api + dl) intact.
+CMD ["uv", "run", "--no-sync", "uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

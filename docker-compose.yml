@@ -37,5 +37,18 @@ services:
     volumes:
       - ./models:/app/models:ro   # models read-only
     restart: unless-stopped
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: apps/dashboard/Dockerfile
+    container_name: gridpulse-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      GRIDPULSE_API_URL: http://api:8000/api/v1   # container-to-container
+    depends_on:
+      - api
+    restart: unless-stopped
 volumes:
   pgdata:
