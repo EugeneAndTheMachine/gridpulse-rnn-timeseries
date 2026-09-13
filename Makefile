@@ -58,6 +58,12 @@ dashboard-dev:
 dashboard-run:
 	uv run streamlit run apps/dashboard/Home.py --server.port 8501 --server.address 0.0.0.0
 
+web-dev:
+	cd apps/web && npm install && npm run dev
+
+web-build:
+	cd apps/web && npm install && npm run build
+
 seed:
 	bash scripts/seed_all.sh
 

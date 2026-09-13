@@ -23,7 +23,7 @@ def test_zscore_threshold_flags_outliers():
     scores[500] = 10.0  # extreme outlier
     thr = ZScoreThreshold(k=3.0).fit(scores)
     preds = thr.predict(scores)
-    assert preds[500] == True
+    assert preds[500]
 
 
 def test_group_anomalies_merges_close_points():
@@ -106,7 +106,7 @@ def test_rolling_threshold_flags_spike_without_leaking_into_stats():
     scores = np.array([1.0, 1.0, 1.0, 1.0, 100.0])
     thr = RollingThreshold(window=3, k=3.0).fit(scores)
     preds = thr.predict(scores)
-    assert preds[-1] == True, "spike at the end must be flagged"
+    assert preds[-1], "spike at the end must be flagged"
 
 
 def test_rolling_threshold_does_not_flag_stationary_series():

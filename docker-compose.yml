@@ -36,6 +36,7 @@ services:
         condition: service_healthy
     volumes:
       - ./models:/app/models:ro   # models read-only
+      - ./data:/app/data:ro       # raw CSVs for the EDA endpoint
     restart: unless-stopped
 
   dashboard:
@@ -47,6 +48,21 @@ services:
       - "8501:8501"
     environment:
       GRIDPULSE_API_URL: http://api:8000/api/v1   # container-to-container
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  web:
+    build:
+      context: apps/web
+      dockerfile: Dockerfile
+      args:
+        # Baked into the client bundle; the browser reaches the API on the
+        # host-published port, not the compose network hostname.
+        NEXT_PUBLIC_API_URL: http://localhost:8000/api/v1
+    container_name: gridpulse-web
+    ports:
+      - "3000:3000"
     depends_on:
       - api
     restart: unless-stopped

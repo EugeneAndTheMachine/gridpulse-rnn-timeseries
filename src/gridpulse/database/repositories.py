@@ -119,10 +119,10 @@ class ForecastRepository:
                 SUM(n_predictions) AS n_predictions
             FROM forecast_accuracy_hourly
             WHERE model_name = :model
-              AND bucket >= NOW() - :interval::interval
+              AND bucket >= NOW() - make_interval(days => :days)
         """)
         result = self.session.execute(
-            sql, {"model": model_name, "interval": f"{days} days"}
+            sql, {"model": model_name, "days": days}
         ).mappings().one_or_none()
 
         if result is None or result["n_predictions"] is None:
@@ -132,6 +132,44 @@ class ForecastRepository:
             "mae": float(result["mae"]) if result["mae"] else None,
             "rmse": float(result["rmse"]) if result["rmse"] else None,
             "n_predictions": int(result["n_predictions"]),
+        }
+
+    def get_metrics(
+        self,
+        model_name: str,
+        dataset: str | None = None,
+        horizon_step: int | None = None,
+    ) -> dict[str, Any]:
+        """
+        Accuracy computed directly from the forecasts table over the full
+        available range (works with historical data, unlike the NOW()-relative
+        continuous aggregate). residual is stored as (predicted - actual).
+        """
+        sql = text("""
+            SELECT
+                count(*) FILTER (WHERE actual IS NOT NULL)              AS n,
+                AVG(abs(residual))                                     AS mae,
+                sqrt(AVG(residual * residual))                        AS rmse,
+                AVG(2 * abs(residual)
+                    / NULLIF(abs(actual) + abs(predicted), 0)) * 100  AS smape
+            FROM forecasts
+            WHERE model_name = :model
+              AND actual IS NOT NULL
+              AND (:dataset IS NULL OR dataset = :dataset)
+              AND (:horizon IS NULL OR horizon_step = :horizon)
+        """)
+        row = self.session.execute(
+            sql,
+            {"model": model_name, "dataset": dataset, "horizon": horizon_step},
+        ).mappings().one_or_none()
+
+        if row is None or not row["n"]:
+            return {"n_predictions": 0, "mae": None, "rmse": None, "smape": None}
+        return {
+            "n_predictions": int(row["n"]),
+            "mae": float(row["mae"]) if row["mae"] is not None else None,
+            "rmse": float(row["rmse"]) if row["rmse"] is not None else None,
+            "smape": float(row["smape"]) if row["smape"] is not None else None,
         }
 
 

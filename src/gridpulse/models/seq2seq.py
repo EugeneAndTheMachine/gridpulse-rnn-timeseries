@@ -59,8 +59,6 @@ class Seq2SeqForecaster(BaseNNForecaster):
             x: (batch, input_len, num_features) — encoder input
             y: (batch, forecast_horizon) — target, used for teacher forcing during training
         """
-        batch_size = x.size(0)
-
         # Encode
         _, (h_n, c_n) = self.encoder(x)
         # h_n, c_n: (num_layers, batch, hidden_size)

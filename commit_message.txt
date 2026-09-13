@@ -1,0 +1,29 @@
+feat(web): add Next.js dashboard with EDA and forecast-metrics APIs
+
+Introduce a modern Next.js web dashboard as the primary UI and extend the
+FastAPI backend with the endpoints it depends on.
+
+Web dashboard (apps/web)
+- Next.js 14 + React 18 + TypeScript + Tailwind CSS + Recharts, white/green
+  design system.
+- Pages: Overview, Data & EDA, Forecasting, Model Comparison, Imputation.
+- Thin typed API client with a live health indicator and graceful loading,
+  empty and error states.
+- Standalone Docker build, wired into docker-compose as the `web` service on
+  port 3000.
+
+API
+- Add EDA endpoints (GET /eda, GET /eda/{dataset}): exploratory analysis
+  computed on demand from the raw ETT CSVs, and register the eda router.
+- Add GET /forecast/metrics: MAE / RMSE / sMAPE over the full stored range,
+  computed directly from the forecasts table so it works with historical data
+  (unlike the NOW()-relative continuous aggregate).
+
+Fixes
+- ForecastRepository.get_recent_metrics: use make_interval(days => :days)
+  instead of interpolating an interval string into the query.
+
+Tooling & docs
+- docker-compose: add the web service and mount ./data read-only for EDA.
+- Makefile: add web-dev and web-build targets.
+- README: document the Next.js dashboard, updated architecture and tech stack.

@@ -1,6 +1,5 @@
 """Metrics for anomaly detection."""
 import numpy as np
-import pandas as pd
 from gridpulse.anomaly.event_grouping import group_anomalies
 
 

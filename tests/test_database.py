@@ -4,7 +4,7 @@ from datetime import datetime, timezone, timedelta
 
 from gridpulse.database.connection import session_scope
 from gridpulse.database.repositories import (
-    ForecastRepository, AnomalyRepository, ModelRegistryRepository,
+    ForecastRepository, ModelRegistryRepository,
 )
 
 

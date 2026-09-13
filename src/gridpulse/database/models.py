@@ -5,7 +5,7 @@ from typing import Any
 
 from sqlalchemy import (
     String, Integer, BigInteger, Float, Boolean, DateTime,
-    Text, JSON, UniqueConstraint, Index
+    Text, UniqueConstraint, Index
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column

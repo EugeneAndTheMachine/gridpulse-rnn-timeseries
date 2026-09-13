@@ -1,6 +1,5 @@
 """Load and cache trained models."""
 from __future__ import annotations
-from pathlib import Path
 import torch
 
 from gridpulse.models.lstm import LSTMForecaster

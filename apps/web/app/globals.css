@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #f8fafc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-white shadow-card;
+  }
+  .card-pad {
+    @apply p-5;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-wider text-brand-600;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700;
+  }
+  .select {
+    @apply rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink shadow-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100;
+  }
+  .pill {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .th {
+    @apply px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-ink-muted;
+  }
+  .td {
+    @apply px-3 py-2 text-sm text-ink-soft;
+  }
+}
+
+/* Recharts: soften default fonts */
+.recharts-cartesian-axis-tick-value {
+  font-size: 11px;
+  fill: #64748b;
+}
+.recharts-default-tooltip {
+  border-radius: 10px !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.1) !important;
+}

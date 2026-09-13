@@ -95,6 +95,25 @@ def predict(
     )
 
 
+@router.get("/metrics")
+def metrics(
+    model_name: str,
+    dataset: str | None = None,
+    horizon_step: int | None = Query(None, ge=1),
+    repo: ForecastRepository = Depends(get_forecast_repo),
+):
+    """
+    Accuracy over the full stored range (works with historical data).
+    Returns MAE / RMSE / sMAPE and the number of scored predictions.
+    """
+    return {
+        "model_name": model_name,
+        "dataset": dataset,
+        "horizon_step": horizon_step,
+        **repo.get_metrics(model_name, dataset=dataset, horizon_step=horizon_step),
+    }
+
+
 @router.get("/accuracy", response_model=AccuracySummary)
 def accuracy(
     model_name: str,
